@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="frames/frame-001.jpg" />
+<link rel="preload" as="image" href="https://raw.githubusercontent.com/keeshenarul/bwg-bavarian-watch/main/frames/frame-001.jpg" />
 <style>
 /* ============================================================
    BWG BAVARIAN WATCH — Design tokens
@@ -295,7 +295,7 @@ section{position:relative}
 .col-card:hover .col-card__bg{transform:scale(1.06)}
 .col-card::after{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(to top,rgba(8,15,26,.94) 0%,rgba(8,15,26,.66) 36%,rgba(8,15,26,.2) 68%,transparent 100%)}
-.col-card--isaria .col-card__bg{background:#fdfdfd url('frames/frame-001.jpg') center 26%/cover}
+.col-card--isaria .col-card__bg{background:#fdfdfd url('https://raw.githubusercontent.com/keeshenarul/bwg-bavarian-watch/main/frames/frame-001.jpg') center 26%/cover}
 .col-card--bavaria .col-card__bg{background:
   radial-gradient(140% 100% at 70% 20%,#2b3a4d,#0E1A2B 70%)}
 .col-card--acc .col-card__bg{background:
@@ -688,7 +688,7 @@ section{position:relative}
   <div class="wrap">
     <div class="feature">
       <div class="feature__media reveal">
-        <img src="frames/frame-029.jpg" alt="BWG ISARIA automatic watch in Isar Green with diamond-cut bezel" data-parallax="0.12" />
+        <img src="https://raw.githubusercontent.com/keeshenarul/bwg-bavarian-watch/main/frames/frame-029.jpg" alt="BWG ISARIA automatic watch in Isar Green with diamond-cut bezel" data-parallax="0.12" />
       </div>
       <div class="feature__body reveal" data-d="1">
         <span class="tag">ISARIA · the not-boring sport watch</span>
@@ -745,7 +745,7 @@ section{position:relative}
     <h2 class="h-lg reveal" data-d="1" style="margin:.3em 0 .5em">A German design,<br>with a Swiss heart.</h2>
     <p class="lead reveal" data-d="2">Movements are essential in every timepiece, so we opt for strong, reliable Swiss calibres. Quartz from the best of Ronda; for automatics we trust the Landeron manufacture Swiss series — the exclusivity of small-batch Swiss engineering with millions-tested reliability.</p>
     <div class="movement__img reveal" data-d="2">
-      <img src="frames/frame-015.jpg" alt="Exploded view of the BWG ISARIA showing crystal, dial, date ring, Swiss automatic movement and case" />
+      <img src="https://raw.githubusercontent.com/keeshenarul/bwg-bavarian-watch/main/frames/frame-015.jpg" alt="Exploded view of the BWG ISARIA showing crystal, dial, date ring, Swiss automatic movement and case" />
     </div>
   </div>
 </section>
@@ -986,7 +986,8 @@ const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
    HERO — preload frames + scroll-scrub canvas
    ============================================================ */
 const FRAME_COUNT = 29;
-const framePath = i => `frames/frame-${String(i).padStart(3,'0')}.jpg`;
+const GH_RAW = 'https://raw.githubusercontent.com/keeshenarul/bwg-bavarian-watch/main';
+const framePath = i => `${GH_RAW}/frames/frame-${String(i).padStart(3,'0')}.jpg`;
 const canvas = document.getElementById('hero-canvas');
 const ctx = canvas.getContext('2d', {alpha:false});
 const images = [];
