@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BWG Bavarian Watch — Style has a time</title>
+<meta name="description" content="Unique watches for strong personalities. Designed in Munich, Bavaria. Swiss movements. Award-winning design. BWG Bavarian Watch." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="frames/frame-001.jpg" />
+<style>
+/* ============================================================
+   BWG BAVARIAN WATCH — Design tokens
+   ============================================================ */
+:root{
+  --ink:#0E1A2B;          /* deep navy */
+  --ink-2:#1C2A3A;
+  --ink-soft:#33414f;
+  --cream:#F5F1EA;        /* eco felt / paper */
+  --cream-2:#EFE8DB;
+  --paper:#FDFDFD;        /* hero stage — matches render bg */
+  --brass:#A1844F;        /* good design award accent */
+  --brass-2:#BE9F65;
+  --isar:#6B7B52;         /* isar green */
+  --sky:#7FA8C9;          /* sky blue */
+  --slate:#46505C;
+  --muted:#5B6675;
+  --line:rgba(14,26,43,.12);
+  --line-soft:rgba(14,26,43,.07);
+
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  --maxw:1240px;
+  --pad:clamp(20px,5vw,72px);
+  --r:14px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  font-size:17px;
+  font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+::selection{background:var(--ink);color:var(--cream)}
+
+/* Typography ------------------------------------------------- */
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.04;letter-spacing:-.01em}
+.eyebrow{
+  font-family:var(--sans);font-weight:600;font-size:.72rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--brass);display:inline-block;
+}
+.eyebrow--muted{color:var(--muted)}
+.serif-i{font-style:italic;font-family:var(--serif)}
+
+.h-display{font-size:clamp(2.3rem,5.6vw,5.2rem)}
+.h-xl{font-size:clamp(2.4rem,6vw,5rem)}
+.h-lg{font-size:clamp(1.9rem,4vw,3.4rem)}
+.h-md{font-size:clamp(1.5rem,2.6vw,2.3rem)}
+.lead{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-soft);max-width:62ch;line-height:1.65}
+.fine{font-size:.86rem;color:var(--muted)}
+
+/* Layout helpers -------------------------------------------- */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+section{position:relative}
+.section-pad{padding-block:clamp(72px,11vw,150px)}
+.bg-ink{background:var(--ink);color:var(--cream)}
+.bg-ink h1,.bg-ink h2,.bg-ink h3{color:#fff}
+.bg-ink .lead{color:rgba(245,241,234,.78)}
+.bg-cream2{background:var(--cream-2)}
+.bg-paper{background:var(--paper)}
+
+/* Buttons ---------------------------------------------------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6em;
+  font-family:var(--sans);font-weight:600;font-size:.84rem;letter-spacing:.04em;
+  padding:1.05em 1.9em;border-radius:100px;
+  transition:transform .35s var(--ease),background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
+  will-change:transform;
+}
+.btn:active{transform:scale(.97)}
+.btn--solid{background:var(--ink);color:var(--cream)}
+.btn--solid:hover{background:var(--brass);color:#fff}
+.btn--light{background:var(--cream);color:var(--ink)}
+.btn--light:hover{background:#fff}
+.btn--outline{border:1.5px solid currentColor}
+.btn--outline:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.bg-ink .btn--outline:hover{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+
+.link-arrow{
+  display:inline-flex;align-items:center;gap:.5em;font-weight:600;font-size:.9rem;
+  letter-spacing:.02em;border-bottom:1.5px solid var(--brass);padding-bottom:3px;
+  transition:gap .3s var(--ease),border-color .3s var(--ease)}
+.link-arrow:hover{gap:.85em}
+
+/* ============================================================
+   ANNOUNCEMENT BAR
+   ============================================================ */
+.announce{
+  background:var(--ink);color:rgba(245,241,234,.92);
+  font-size:.76rem;font-weight:500;letter-spacing:.06em;
+  height:38px;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;text-align:center;padding-inline:48px;
+}
+.announce__track{position:relative;width:100%;height:1.2em}
+.announce__item{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(60%);transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+.announce__item.is-active{opacity:1;transform:translateY(0)}
+.announce__item.is-prev{opacity:0;transform:translateY(-60%)}
+@media(max-width:560px){
+  .announce{height:46px;font-size:.66rem;line-height:1.25;padding-inline:22px}
+  .announce__track{height:2.5em}
+}
+
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+.header{
+  position:sticky;top:0;z-index:60;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);
+  background:rgba(245,241,234,0);
+}
+.header.is-stuck{background:rgba(245,241,234,.86);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.header.on-dark{color:var(--cream)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:24px}
+.nav__left,.nav__right{display:flex;align-items:center;gap:8px}
+.nav__links{display:flex;align-items:center;gap:30px}
+.nav__links a{
+  font-weight:600;font-size:.82rem;letter-spacing:.05em;position:relative;padding:6px 0;
+}
+.nav__links a::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:currentColor;
+  transition:width .35s var(--ease)}
+.nav__links a:hover::after{width:100%}
+
+/* logo */
+.logo{display:flex;align-items:center;gap:12px}
+.logo__mark{height:32px;width:auto;flex:none}
+.logo__mark path,.logo__mark line{stroke:currentColor;stroke-linejoin:miter}
+.logo__txt{line-height:1}
+.logo__name{font-family:var(--sans);font-size:1.2rem;font-weight:700;letter-spacing:-.005em}
+.logo__sub{font-size:.6rem;letter-spacing:.14em;opacity:.62;margin-top:4px;font-weight:600}
+
+.icon-btn{
+  width:42px;height:42px;display:grid;place-items:center;border-radius:50%;
+  transition:background .3s var(--ease)}
+.icon-btn:hover{background:rgba(14,26,43,.07)}
+.on-dark .icon-btn:hover{background:rgba(245,241,234,.12)}
+.icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6}
+.cur{
+  font-weight:600;font-size:.8rem;letter-spacing:.05em;padding:8px 12px;border-radius:100px;
+  border:1.5px solid var(--line);display:inline-flex;gap:6px;align-items:center}
+.on-dark .cur{border-color:rgba(245,241,234,.25)}
+.hamburger{display:none}
+
+@media(max-width:980px){
+  .nav__links,.nav__right .cur,.desk-only{display:none}
+  .hamburger{display:grid}
+}
+
+/* Mobile menu overlay */
+.menu-overlay{
+  position:fixed;inset:0;z-index:80;background:var(--ink);color:var(--cream);
+  padding:var(--pad);display:flex;flex-direction:column;
+  clip-path:circle(0% at calc(100% - 44px) 44px);
+  transition:clip-path .6s var(--ease);pointer-events:none;
+}
+.menu-overlay.is-open{clip-path:circle(150% at calc(100% - 44px) 44px);pointer-events:auto}
+.menu-overlay__top{display:flex;justify-content:space-between;align-items:center;height:74px}
+.menu-overlay nav{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:6px}
+.menu-overlay nav a{
+  font-family:var(--serif);font-size:clamp(2.2rem,9vw,3.6rem);font-weight:500;
+  opacity:0;transform:translateY(20px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.menu-overlay.is-open nav a{opacity:1;transform:none}
+.menu-overlay.is-open nav a:nth-child(1){transition-delay:.15s}
+.menu-overlay.is-open nav a:nth-child(2){transition-delay:.22s}
+.menu-overlay.is-open nav a:nth-child(3){transition-delay:.29s}
+.menu-overlay.is-open nav a:nth-child(4){transition-delay:.36s}
+.menu-overlay.is-open nav a:nth-child(5){transition-delay:.43s}
+.menu-overlay nav a:hover{color:var(--brass-2)}
+.menu-overlay__foot{display:flex;gap:24px;flex-wrap:wrap;font-size:.85rem;color:rgba(245,241,234,.6)}
+
+/* ============================================================
+   HERO — scroll-scrubbed exploded watch
+   ============================================================ */
+.hero{height:480vh;position:relative;background:var(--paper)}
+.hero__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero__stage-grad{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(245,241,234,.5) 100%);
+  pointer-events:none}
+/* soft fade on right + bottom edges to conceal the source render's bleed */
+.hero__sticky::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to left,  #fdfdfd 0%, transparent 18%),
+    linear-gradient(to top,   #fdfdfd 0%, transparent 14%);
+}
+
+.hero__overlay{position:relative;width:100%;height:100%;pointer-events:none}
+.hero__layer{
+  position:absolute;left:0;right:0;padding-inline:var(--pad);
+  max-width:var(--maxw);margin-inline:auto;
+}
+.hero__layer--top{top:clamp(96px,15vh,150px);text-align:left}
+.hero__layer--mid{top:50%;transform:translateY(-50%);text-align:left}
+.hero__layer--bottom{bottom:clamp(40px,8vh,90px);text-align:left}
+.hero__layer .btn{pointer-events:auto}
+
+.hero h1{color:var(--ink);text-shadow:0 1px 36px rgba(253,253,253,.95),0 1px 50px rgba(253,253,253,.9),0 0 4px rgba(253,253,253,.8)}
+.hero__sub{color:var(--ink-soft);font-weight:600;font-size:clamp(1rem,1.6vw,1.35rem);margin-top:.6em;text-shadow:0 1px 22px rgba(253,253,253,.98),0 0 6px rgba(253,253,253,.9)}
+.hero__chip,.hero .eyebrow{text-shadow:0 1px 18px rgba(253,253,253,.98),0 0 8px rgba(253,253,253,.98),0 0 16px rgba(253,253,253,.9)}
+.hero__chip{
+  display:inline-flex;align-items:center;gap:.6em;font-weight:600;font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);
+}
+.hero__chip .dot{width:7px;height:7px;border-radius:50%;background:var(--isar)}
+
+.hero__scrollcue{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);
+  transition:opacity .4s var(--ease)}
+.hero__scrollcue .mouse{width:22px;height:34px;border:1.5px solid var(--muted);border-radius:12px;position:relative}
+.hero__scrollcue .mouse::after{content:"";position:absolute;top:6px;left:50%;width:3px;height:6px;background:var(--muted);border-radius:2px;transform:translateX(-50%);animation:wheel 1.6s var(--ease) infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,9px)}}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:200;background:var(--paper);display:grid;place-items:center;transition:opacity .7s var(--ease),visibility .7s}
+.loader.is-done{opacity:0;visibility:hidden}
+.loader__inner{text-align:center;width:min(80vw,320px)}
+.loader__name{font-family:var(--sans);font-size:1.4rem;font-weight:700;letter-spacing:-.005em}
+.loader__sub{font-size:.64rem;letter-spacing:.14em;color:var(--muted);margin-top:6px}
+.loader__bar{height:2px;background:var(--line);margin-top:22px;overflow:hidden;border-radius:2px}
+.loader__bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .25s linear}
+.loader__pct{font-size:.7rem;color:var(--muted);margin-top:10px;font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   REVEAL ANIMATIONS
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+.reveal[data-d="4"]{transition-delay:.32s}
+
+/* ============================================================
+   INTRO / BRAND
+   ============================================================ */
+.intro{text-align:center}
+.intro .wrap{max-width:1000px}
+.intro h2{margin-block:.3em .5em}
+.intro .lead{margin-inline:auto;text-align:center}
+
+.marquee-band{
+  background:var(--ink);color:var(--cream);overflow:hidden;padding-block:18px;
+  border-block:1px solid rgba(245,241,234,.1)}
+.marquee-band__track{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:scrollx 32s linear infinite}
+.marquee-band span{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.4vw,1.9rem);opacity:.85;display:inline-flex;align-items:center;gap:48px}
+.marquee-band span::after{content:"✦";color:var(--brass-2);font-style:normal;font-size:.7em}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* ============================================================
+   COLLECTIONS
+   ============================================================ */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(32px,5vw,64px)}
+.sec-head h2{max-width:16ch}
+
+.collections{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.col-card{
+  position:relative;border-radius:var(--r);overflow:hidden;min-height:clamp(380px,46vw,560px);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:30px;
+  color:#fff;isolation:isolate;transition:transform .6s var(--ease);
+}
+.col-card:hover{transform:translateY(-6px)}
+.col-card__bg{position:absolute;inset:0;z-index:-2;transition:transform 1.1s var(--ease)}
+.col-card:hover .col-card__bg{transform:scale(1.06)}
+.col-card::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(8,15,26,.94) 0%,rgba(8,15,26,.66) 36%,rgba(8,15,26,.2) 68%,transparent 100%)}
+.col-card--isaria .col-card__bg{background:#fdfdfd url('frames/frame-001.jpg') center 26%/cover}
+.col-card--bavaria .col-card__bg{background:
+  radial-gradient(140% 100% at 70% 20%,#2b3a4d,#0E1A2B 70%)}
+.col-card--acc .col-card__bg{background:
+  radial-gradient(140% 100% at 30% 25%,#3a4636,#202a1c 75%)}
+.col-card__deco{position:absolute;inset:0;z-index:-1;opacity:.4;
+  background-image:radial-gradient(circle,rgba(255,255,255,.5) 1px,transparent 1.4px);background-size:26px 26px;
+  -webkit-mask:linear-gradient(transparent,#000);mask:linear-gradient(transparent,#000)}
+.col-card .eyebrow{color:var(--brass-2)}
+.col-card h3{font-size:clamp(1.8rem,3vw,2.6rem);margin:.2em 0 .35em;color:#fff}
+.col-card p{color:rgba(255,255,255,.82);font-size:.95rem;max-width:30ch}
+.col-card .link-arrow{color:#fff;border-color:var(--brass-2);margin-top:18px}
+.swatches{display:flex;gap:9px;margin-top:18px}
+.swatch{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5)}
+.col-card__price{position:absolute;top:30px;right:30px;font-family:var(--serif);font-size:1.05rem;background:rgba(253,253,253,.16);backdrop-filter:blur(6px);padding:6px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.25)}
+
+@media(max-width:880px){.collections{grid-template-columns:1fr;gap:18px}}
+
+/* ============================================================
+   VALUE PILLARS
+   ============================================================ */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pillar{padding:clamp(28px,3vw,42px);border-right:1px solid var(--line);background:var(--paper);transition:background .4s var(--ease)}
+.pillar:last-child{border-right:none}
+.pillar:hover{background:#fff}
+.pillar__no{font-family:var(--serif);font-size:.9rem;color:var(--brass);font-style:italic}
+.pillar svg{width:30px;height:30px;stroke:var(--ink);fill:none;stroke-width:1.4;margin:18px 0}
+.pillar h3{font-family:var(--sans);font-weight:700;font-size:1.18rem;letter-spacing:-.01em;margin-bottom:.5em}
+.pillar p{font-size:.92rem;color:var(--muted);line-height:1.6}
+@media(max-width:900px){.pillars{grid-template-columns:1fr 1fr}.pillar:nth-child(2){border-right:none}.pillar:nth-child(1),.pillar:nth-child(2){border-bottom:1px solid var(--line)}}
+@media(max-width:520px){.pillars{grid-template-columns:1fr}.pillar{border-right:none;border-bottom:1px solid var(--line)}.pillar:last-child{border-bottom:none}}
+
+/* ============================================================
+   FEATURE (split, parallax) — ISARIA / BAVARIA / MOVEMENT
+   ============================================================ */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+.feature--rev .feature__media{order:2}
+.feature__media{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;background:var(--paper)}
+.feature__media img{width:100%;height:120%;object-fit:cover;will-change:transform}
+.feature__body{max-width:52ch}
+.feature__body h2{margin:.25em 0 .6em}
+.feature__body .lead{margin-bottom:1.4em}
+.spec-row{display:flex;gap:30px;flex-wrap:wrap;margin:26px 0 30px;padding-top:24px;border-top:1px solid var(--line)}
+.bg-ink .spec-row{border-color:rgba(245,241,234,.18)}
+.spec{min-width:90px}
+.spec b{display:block;font-family:var(--serif);font-size:1.5rem;font-weight:500}
+.spec span{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.bg-ink .spec span{color:rgba(245,241,234,.6)}
+.tag{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--isar);background:rgba(107,123,82,.12);padding:6px 12px;border-radius:100px}
+@media(max-width:860px){.feature{grid-template-columns:1fr;gap:36px}.feature--rev .feature__media{order:0}.feature__media{aspect-ratio:1/1}}
+
+/* movement exploded stat strip */
+.movement{text-align:center}
+.movement .wrap{max-width:880px}
+.movement__img{margin:clamp(30px,5vw,56px) auto 0;max-width:560px;border-radius:var(--r);overflow:hidden;background:var(--paper)}
+
+/* ============================================================
+   FOUNDER / MISSION
+   ============================================================ */
+.founder{position:relative;overflow:hidden}
+.founder blockquote{
+  font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.9rem);line-height:1.28;font-weight:400;
+  max-width:18ch;color:#fff}
+.founder__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(36px,6vw,80px);align-items:center}
+.founder__story p{color:rgba(245,241,234,.82);margin-bottom:1.1em;max-width:54ch}
+.founder__sign{margin-top:24px;font-family:var(--serif);font-style:italic;font-size:1.4rem}
+.founder__role{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-2);margin-top:4px}
+.founder__deco{position:absolute;font-family:var(--serif);font-style:italic;color:rgba(190,159,101,.1);
+  font-size:clamp(10rem,30vw,26rem);line-height:1;top:-6%;right:-3%;z-index:0;pointer-events:none;user-select:none}
+.founder__grid{position:relative;z-index:1}
+@media(max-width:860px){.founder__grid{grid-template-columns:1fr;gap:30px}}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews-head{text-align:center;margin-bottom:48px}
+.stars{display:inline-flex;gap:4px;color:var(--brass);margin-bottom:14px}
+.stars svg{width:22px;height:22px;fill:currentColor}
+.rating-big{font-family:var(--serif);font-size:2.4rem;font-weight:500}
+.review-row{display:flex;gap:20px;width:max-content;animation:scrollx 60s linear infinite}
+.review-row:nth-child(2){animation-duration:75s;animation-direction:reverse;margin-top:20px}
+.reviews-marquee{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.reviews-marquee:hover .review-row{animation-play-state:paused}
+.r-card{
+  width:340px;flex:none;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+  padding:26px 28px;display:flex;flex-direction:column;gap:12px}
+.r-card .stars svg{width:15px;height:15px}
+.r-card .stars{margin:0}
+.r-card h4{font-family:var(--sans);font-weight:700;font-size:1rem}
+.r-card p{font-size:.9rem;color:var(--ink-soft);line-height:1.6}
+.r-card__by{margin-top:auto;font-size:.8rem;color:var(--muted);font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+.r-card__by .v{color:var(--isar);font-size:.7rem;border:1px solid rgba(107,123,82,.4);border-radius:100px;padding:2px 8px;letter-spacing:.06em}
+
+/* ============================================================
+   SERVICE / SHIPPING PILLARS
+   ============================================================ */
+.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.svc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.svc:hover{transform:translateY(-5px);box-shadow:0 18px 40px -28px rgba(14,26,43,.45)}
+.svc svg{width:30px;height:30px;stroke:var(--brass);fill:none;stroke-width:1.4;margin-bottom:18px}
+.svc h3{font-family:var(--sans);font-weight:700;font-size:1.08rem;margin-bottom:.5em}
+.svc p{font-size:.88rem;color:var(--muted);line-height:1.6}
+@media(max-width:900px){.service-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.service-grid{grid-template-columns:1fr}}
+
+/* stores */
+.stores{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.store{border:1px solid rgba(245,241,234,.18);border-radius:var(--r);padding:30px}
+.store .flag{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-2);font-weight:600}
+.store h3{font-family:var(--sans);font-weight:700;font-size:1.2rem;margin:.6em 0 .4em;color:#fff}
+.store p{font-size:.9rem;color:rgba(245,241,234,.72);line-height:1.6}
+.store .soon{display:inline-block;margin-top:12px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);border:1px solid rgba(127,168,201,.4);padding:4px 10px;border-radius:100px}
+@media(max-width:860px){.stores{grid-template-columns:1fr}}
+
+/* newsletter */
+.news{text-align:center}
+.news .wrap{max-width:680px}
+.news form{display:flex;gap:10px;margin-top:30px;max-width:480px;margin-inline:auto}
+.news input{
+  flex:1;background:transparent;border:1.5px solid rgba(245,241,234,.3);border-radius:100px;
+  padding:1em 1.4em;color:var(--cream);font:inherit;font-size:.95rem;outline:none;transition:border-color .3s var(--ease)}
+.news input::placeholder{color:rgba(245,241,234,.5)}
+.news input:focus{border-color:var(--brass-2)}
+.news__msg{font-size:.85rem;margin-top:14px;min-height:1.2em;color:var(--brass-2)}
+@media(max-width:520px){.news form{flex-direction:column;border-radius:18px}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:#0a131f;color:rgba(245,241,234,.7);padding-top:clamp(60px,8vw,100px)}
+.footer__top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:60px;border-bottom:1px solid rgba(245,241,234,.12)}
+.footer h4{font-family:var(--sans);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);margin-bottom:18px}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer ul a{font-size:.9rem;transition:color .3s var(--ease)}
+.footer ul a:hover{color:var(--brass-2)}
+.footer__brand .logo__name,.footer__brand .logo__sub{color:var(--cream)}
+.footer__brand p{font-size:.9rem;max-width:34ch;margin-top:18px;line-height:1.7}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-block:28px;font-size:.8rem}
+.pay{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pay span{font-size:.62rem;font-weight:700;letter-spacing:.04em;background:rgba(245,241,234,.08);border:1px solid rgba(245,241,234,.14);color:rgba(245,241,234,.75);padding:5px 9px;border-radius:6px}
+.footer__soc{display:flex;gap:10px}
+.footer__soc a{width:40px;height:40px;border:1px solid rgba(245,241,234,.18);border-radius:50%;display:grid;place-items:center;transition:background .3s var(--ease),border-color .3s}
+.footer__soc a:hover{background:var(--brass);border-color:var(--brass)}
+.footer__soc svg{width:18px;height:18px;fill:currentColor}
+@media(max-width:860px){.footer__top{grid-template-columns:1fr 1fr;gap:34px}.footer__brand{grid-column:1/-1}}
+@media(max-width:520px){.footer__top{grid-template-columns:1fr}}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero__scrollcue .mouse::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <svg class="logo__mark" viewBox="0 0 74 86" fill="none" aria-hidden="true" style="display:block;height:48px;width:auto;margin:0 auto 16px">
+      <path d="M25 3 L47 43 L25 83 L3 43 Z" stroke-width="3.4"/><path d="M49 3 L71 43 L49 83 L27 43 Z" stroke-width="3.4"/>
+    </svg>
+    <div class="loader__name">Bavarian Watch</div>
+    <div class="loader__sub">München ♦ London</div>
+    <div class="loader__bar"><i id="loader-bar"></i></div>
+    <div class="loader__pct"><span id="loader-pct">0</span>% — preparing the workshop</div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce" role="status" aria-label="Store announcements">
+  <div class="announce__track" id="announce">
+    <div class="announce__item is-active">• free shipping in EU &amp; UK • no import duties in UK &amp; EU</div>
+    <div class="announce__item">• 30 days returns • extendable warranty up to 6 years</div>
+    <div class="announce__item">Interest-free payment options via PayPal &amp; Klarna</div>
+    <div class="announce__item">US customers: no shipping possible over $900 value</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="wrap nav">
+    <div class="nav__left">
+      <a href="#top" class="logo" aria-label="BWG Bavarian Watch home">
+        <svg class="logo__mark" viewBox="0 0 74 86" fill="none" aria-hidden="true">
+          <path d="M25 3 L47 43 L25 83 L3 43 Z" stroke-width="3.4"/>
+          <path d="M49 3 L71 43 L49 83 L27 43 Z" stroke-width="3.4"/>
+        </svg>
+        <span class="logo__txt">
+          <span class="logo__name">Bavarian Watch</span>
+          <span class="logo__sub">München ♦ London</span>
+        </span>
+      </a>
+    </div>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#collections">Collections</a>
+      <a href="#mission">Mission</a>
+      <a href="#stores">Stores</a>
+      <a href="#service">Service</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__right">
+      <span class="cur desk-only">GBP £ <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
+      <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="icon-btn desk-only" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></button>
+      <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1.2 12.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></button>
+      <button class="icon-btn hamburger" id="menu-open" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="menu-overlay__top">
+    <span class="logo__name" style="color:var(--cream)">Bavarian Watch</span>
+    <button class="icon-btn" id="menu-close" aria-label="Close menu" style="color:var(--cream)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+  <nav aria-label="Mobile">
+    <a href="#collections">Collections</a>
+    <a href="#mission">Mission</a>
+    <a href="#stores">Stores</a>
+    <a href="#service">Service</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="menu-overlay__foot">
+    <span>servus@bavarian-watch.com</span>
+    <span>Free shipping EU &amp; UK</span>
+    <span>GBP £</span>
+  </div>
+</div>
+
+<span id="top"></span>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero__sticky">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero__stage-grad"></div>
+    <div class="hero__overlay">
+      <!-- top layer (assembled / intro) -->
+      <div class="hero__layer hero__layer--top" data-range="0,0.18">
+        <span class="hero__chip"><span class="dot"></span> Designed in Munich · Swiss movement</span>
+        <h1 class="h-display" style="margin-top:.18em">Style has<br><span class="serif-i">a time</span></h1>
+      </div>
+      <!-- mid layer (exploded / movement reveal) -->
+      <div class="hero__layer hero__layer--mid" data-range="0.4,0.62" style="opacity:0">
+        <span class="eyebrow">Inside the ISARIA</span>
+        <h1 class="h-xl" style="margin-top:.25em;color:var(--ink)">A Swiss heart,<br>by design.</h1>
+      </div>
+      <!-- bottom layer (reassembled / CTA) -->
+      <div class="hero__layer hero__layer--bottom" data-range="0.82,1" style="opacity:0">
+        <h1 class="h-lg" style="color:var(--ink);margin-bottom:.7em">Never lets you down.</h1>
+        <a href="#collections" class="btn btn--solid">Explore the watches <span class="arr">→</span></a>
+      </div>
+    </div>
+    <div class="hero__scrollcue" id="scrollcue"><span>Scroll to open</span><span class="mouse"></span></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BRAND INTRO
+     ============================================================ -->
+<section class="intro section-pad bg-cream2">
+  <div class="wrap">
+    <span class="eyebrow reveal">The sleek design watch company</span>
+    <h2 class="h-xl reveal" data-d="1">Classic vibes,<br>in a modern twist.</h2>
+    <p class="lead reveal" data-d="2">BWG Bavarian Watch crafts timepieces that rock today's scene and bring back classic vibes — watches that speak to your personal style and never let you down.</p>
+    <div class="reveal" data-d="3" style="margin-top:34px"><a href="#mission" class="link-arrow">More about the brand →</a></div>
+  </div>
+</section>
+
+<!-- marquee band -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-band__track">
+    <span>Good Design Award</span><span>Swiss Movements</span><span>Made in Germany</span><span>CO₂-Neutral</span><span>6-Year Warranty</span>
+    <span>Good Design Award</span><span>Swiss Movements</span><span>Made in Germany</span><span>CO₂-Neutral</span><span>6-Year Warranty</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     COLLECTIONS
+     ============================================================ -->
+<section class="section-pad" id="collections">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">Collections</span>
+        <h2 class="h-lg reveal" data-d="1" style="margin-top:.3em">Three ways to wear<br>a strong personality.</h2>
+      </div>
+      <a href="#" class="link-arrow reveal" data-d="2">View all products →</a>
+    </div>
+
+    <div class="collections">
+      <a href="#isaria" class="col-card col-card--isaria reveal">
+        <div class="col-card__bg"></div>
+        <span class="col-card__price">from £1,300</span>
+        <span class="eyebrow">Automatic</span>
+        <h3>ISARIA</h3>
+        <p>The not-boring sport watch. Diamond-cut bezel, Swiss automatic, under 11 mm.</p>
+        <div class="swatches" aria-hidden="true">
+          <span class="swatch" style="background:#46505c"></span>
+          <span class="swatch" style="background:#7fa8c9"></span>
+          <span class="swatch" style="background:#6b7b52"></span>
+        </div>
+        <span class="link-arrow">Discover ISARIA →</span>
+      </a>
+
+      <a href="#bavaria" class="col-card col-card--bavaria reveal" data-d="1">
+        <div class="col-card__bg"></div><div class="col-card__deco"></div>
+        <span class="col-card__price">from £450</span>
+        <span class="eyebrow">Quartz · Swiss Made</span>
+        <h3>BAVARIA</h3>
+        <p>The not-so-serious dress watch. Award-winning, 8.5 mm flat, baroque horns.</p>
+        <div class="swatches" aria-hidden="true">
+          <span class="swatch" style="background:#f5f1ea"></span>
+          <span class="swatch" style="background:#1b3a6b"></span>
+          <span class="swatch" style="background:#2b2f33"></span>
+        </div>
+        <span class="link-arrow">Discover BAVARIA →</span>
+      </a>
+
+      <a href="#" class="col-card col-card--acc reveal" data-d="2">
+        <div class="col-card__bg"></div><div class="col-card__deco"></div>
+        <span class="col-card__price">from £30</span>
+        <span class="eyebrow">Accessoires</span>
+        <h3>Straps</h3>
+        <p>Quick-change silicone, textile NATO, Milanese mesh &amp; handmade leather — no tools.</p>
+        <div class="swatches" aria-hidden="true">
+          <span class="swatch" style="background:#6b7b52"></span>
+          <span class="swatch" style="background:#7fa8c9"></span>
+          <span class="swatch" style="background:#a1844f"></span>
+          <span class="swatch" style="background:#2b2f33"></span>
+        </div>
+        <span class="link-arrow">Shop straps →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VALUE PILLARS
+     ============================================================ -->
+<section class="section-pad bg-cream2">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">Why BWG</span>
+        <h2 class="h-lg reveal" data-d="1" style="margin-top:.3em">Built to be worn,<br>made to last.</h2>
+      </div>
+    </div>
+    <div class="pillars reveal" data-d="1">
+      <div class="pillar">
+        <span class="pillar__no">01</span>
+        <svg viewBox="0 0 24 24"><path d="M12 2 22 8.5 12 15 2 8.5Z"/><path d="M2 8.5v7L12 22l10-6.5v-7"/></svg>
+        <h3>Unique Design</h3>
+        <p>Our award-winning designs are available only at us — never anywhere else.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__no">02</span>
+        <svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 8c3-3 11-3 14 0"/><path d="M5 16c3 3 11 3 14 0"/></svg>
+        <h3>Long-Lasting</h3>
+        <p>High-end materials and perfect craftsmanship guarantee a long life.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__no">03</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>Comfortable</h3>
+        <p>Watch experts call our sport-strap pairings the most comfortable they've ever worn.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__no">04</span>
+        <svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h13"/></svg>
+        <h3>Individual Style</h3>
+        <p>Combine design variants with textile, metal-mesh and leather straps — make it yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURE — ISARIA
+     ============================================================ -->
+<section class="section-pad" id="isaria">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature__media reveal">
+        <img src="frames/frame-029.jpg" alt="BWG ISARIA automatic watch in Isar Green with diamond-cut bezel" data-parallax="0.12" />
+      </div>
+      <div class="feature__body reveal" data-d="1">
+        <span class="tag">ISARIA · the not-boring sport watch</span>
+        <h2 class="h-lg">The river that<br>was never tamed.</h2>
+        <p class="lead">Named after the Isar — the wild, renatured river running through Munich. A three-dimensional diamond-cut bezel with mirror polish, a unidirectional diving action, and a profile under 11 mm that slips beneath the tightest shirt cuff.</p>
+        <div class="spec-row">
+          <div class="spec"><b>L24</b><span>Landeron Automatic</span></div>
+          <div class="spec"><b>&lt;11mm</b><span>Case Height</span></div>
+          <div class="spec"><b>All-night</b><span>Swiss Lume</span></div>
+        </div>
+        <a href="#" class="btn btn--solid">View in shop <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURE — BAVARIA
+     ============================================================ -->
+<section class="section-pad bg-ink" id="bavaria">
+  <div class="wrap">
+    <div class="feature feature--rev">
+      <div class="feature__media reveal" style="background:radial-gradient(140% 100% at 60% 25%,#24344a,#0a131f)">
+        <div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:40px">
+          <div>
+            <svg viewBox="0 0 74 86" fill="none" stroke="rgba(190,159,101,.7)" style="height:84px;width:auto;margin:0 auto 20px"><path d="M25 3 L47 43 L25 83 L3 43 Z" stroke-width="2.6"/><path d="M49 3 L71 43 L49 83 L27 43 Z" stroke-width="2.6"/></svg>
+            <div style="font-family:var(--serif);font-style:italic;font-size:1.6rem;color:rgba(245,241,234,.9)">Glacier White · Royal Bavarian Blue · Slate Black</div>
+            <div class="fine" style="color:rgba(245,241,234,.55);margin-top:14px;letter-spacing:.06em">2 designs · 3 colours · 6 watches</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature__body reveal" data-d="1">
+        <span class="tag" style="color:var(--sky);background:rgba(127,168,201,.14)">BAVARIA · the not-so-serious dress watch</span>
+        <h2 class="h-lg">Unexpected utility,<br>in the guise of a<br><span class="serif-i">dress watch.</span></h2>
+        <p class="lead">A clear, tidy dial in an 8.5 mm flat case with the baroque horns that became the BWG trademark. Built like a sports watch — yet the design is unmistakably in the foreground. It was not for nothing that this design won the Good Design Award.</p>
+        <div class="spec-row">
+          <div class="spec"><b>100m</b><span>Water Resist.</span></div>
+          <div class="spec"><b>316L</b><span>Steel Case</span></div>
+          <div class="spec"><b>2mm</b><span>Sapphire</span></div>
+          <div class="spec"><b>Ronda</b><span>Swiss Quartz</span></div>
+        </div>
+        <a href="#" class="btn btn--light">View in shop <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MOVEMENT
+     ============================================================ -->
+<section class="section-pad movement bg-cream2">
+  <div class="wrap">
+    <span class="eyebrow reveal">The movements</span>
+    <h2 class="h-lg reveal" data-d="1" style="margin:.3em 0 .5em">A German design,<br>with a Swiss heart.</h2>
+    <p class="lead reveal" data-d="2">Movements are essential in every timepiece, so we opt for strong, reliable Swiss calibres. Quartz from the best of Ronda; for automatics we trust the Landeron manufacture Swiss series — the exclusivity of small-batch Swiss engineering with millions-tested reliability.</p>
+    <div class="movement__img reveal" data-d="2">
+      <img src="frames/frame-015.jpg" alt="Exploded view of the BWG ISARIA showing crystal, dial, date ring, Swiss automatic movement and case" />
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOUNDER / MISSION
+     ============================================================ -->
+<section class="founder section-pad bg-ink" id="mission">
+  <div class="founder__deco" aria-hidden="true">B</div>
+  <div class="wrap founder__grid">
+    <div class="reveal">
+      <span class="eyebrow">The motivation</span>
+      <blockquote style="margin-top:.5em">"A dress watch is not necessarily just a dress watch."</blockquote>
+    </div>
+    <div class="founder__story reveal" data-d="1">
+      <p>When designer Frank Giese set out to develop a new watch in 2018, it was for purely personal reasons. As a watch lover he'd collected everything from luxury houses to flea-market finds — but one watch always carried him through the harder moments.</p>
+      <p>When he decided the old lady deserved a rest and he deserved a new one, he found… nothing he truly liked. So, with an industrial-design degree and years of experience, he set out to build his own — and a single piece quickly became a company.</p>
+      <p>Every BWG watch is created on one maxim: style makes life extraordinary in every situation. Maybe a diving bezel is just there to measure when to turn the meat on the grill.</p>
+      <div class="founder__sign">Frank Giese</div>
+      <div class="founder__role">Founder · Industrial Designer · Munich</div>
+      <div style="margin-top:26px"><a href="#" class="link-arrow" style="color:#fff">Read the full story →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REVIEWS
+     ============================================================ -->
+<section class="section-pad">
+  <div class="wrap reviews-head">
+    <div class="stars reveal" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>
+    </div>
+    <div class="rating-big reveal" data-d="1">5.00 from 13 reviews</div>
+    <p class="fine reveal" data-d="2" style="margin-top:6px">Collectors, watch journalists &amp; first-time owners</p>
+  </div>
+
+  <div class="reviews-marquee" aria-label="Customer reviews">
+    <div class="review-row" id="rrow1"></div>
+    <div class="review-row" id="rrow2"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICE / SHIPPING
+     ============================================================ -->
+<section class="section-pad bg-cream2" id="service">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">Service &amp; shipping</span>
+        <h2 class="h-lg reveal" data-d="1" style="margin-top:.3em">Looked after, end to end.</h2>
+      </div>
+      <p class="lead reveal" data-d="2" style="max-width:34ch">Our watch experts in Germany and the UK are true specialists in watch-making and maintenance.</p>
+    </div>
+
+    <div class="service-grid">
+      <div class="svc reveal">
+        <svg viewBox="0 0 24 24"><path d="M3 12h13l-3-3m3 3-3 3"/><path d="M16 7h3l2 5v3h-3"/><circle cx="7" cy="18" r="2"/></svg>
+        <h3>Fast sending</h3>
+        <p>Usual delivery is 2 days in the UK &amp; EU. International is typically no longer than 10 days.</p>
+      </div>
+      <div class="svc reveal" data-d="1">
+        <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <h3>No import duties</h3>
+        <p>Tax-free shipping to the UK &amp; EU. No hidden costs — international per local customs rules.</p>
+      </div>
+      <div class="svc reveal" data-d="2">
+        <svg viewBox="0 0 24 24"><path d="M12 21c5-3 8-7 8-11a8 8 0 0 0-16 0c0 1.5.5 3 1.3 4.3"/><path d="M12 11c2-2 5-1 5 2 0 2-3 4-5 5-2-1-5-3-5-5"/></svg>
+        <h3>Eco-friendly packaging</h3>
+        <p>We deliver CO₂-neutral. Watch-boxes from Bavarian cardboard (Gmund, Tegernsee) &amp; natural felt.</p>
+      </div>
+      <div class="svc reveal" data-d="3">
+        <svg viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="m3 7 4-4h10l4 4"/><path d="M9 12h6"/></svg>
+        <h3>Easy returns</h3>
+        <p>Not happy? We'll send a return label and refund on receipt. 30-day returns, no fuss.</p>
+      </div>
+    </div>
+
+    <p class="fine reveal" style="margin-top:24px">UK service via horologium.uk · EU service via umr-ruhla.de · all others, contact our team.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     STORES
+     ============================================================ -->
+<section class="section-pad bg-ink" id="stores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">Discover our stores</span>
+        <h2 class="h-lg reveal" data-d="1" style="margin-top:.3em">Designed in Munich.<br>Found around the world.</h2>
+      </div>
+      <p class="lead reveal" data-d="2" style="max-width:36ch">Produced in Germany &amp; Switzerland, shipped from Straubing, Bavaria — a German-made watch with a Swiss heart.</p>
+    </div>
+    <div class="stores">
+      <div class="store reveal">
+        <span class="flag">Germany</span>
+        <h3>VAUND Watch Corner</h3>
+        <p>Georgstraße 14, 30159 Hannover<br>+49 (0)51 12 28 79 001</p>
+      </div>
+      <div class="store reveal" data-d="1">
+        <span class="flag">USA</span>
+        <h3>The Canvas · Oculus</h3>
+        <p>Westfield, World Trade Center<br>185 Greenwich St, New York, NY 10007</p>
+      </div>
+      <div class="store reveal" data-d="2">
+        <span class="flag">Bahrain</span>
+        <h3>City Centre · Al Aali Mall</h3>
+        <p>Bahrain City Center / Al Aali Mall, Seef</p>
+        <span class="soon">Coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     NEWSLETTER
+     ============================================================ -->
+<section class="news section-pad bg-ink" style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow reveal">Stay updated</span>
+    <h2 class="h-md reveal" data-d="1" style="color:#fff;margin:.4em 0">Sign up to keep updated.</h2>
+    <p class="lead reveal" data-d="2" style="margin-inline:auto">Be first to hear about new products, colours and collaborations.</p>
+    <form id="news-form" class="reveal" data-d="2" novalidate>
+      <input type="email" id="news-email" placeholder="your@email.com" aria-label="Email address" required />
+      <button type="submit" class="btn btn--light">Subscribe</button>
+    </form>
+    <div class="news__msg" id="news-msg" role="status"></div>
+    <p class="fine reveal" style="color:rgba(245,241,234,.5);margin-top:8px">Please check your spam folder if you don't receive a confirmation in a few minutes.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#top" class="logo">
+          <svg class="logo__mark" viewBox="0 0 74 86" fill="none" style="color:var(--cream)" aria-hidden="true">
+            <path d="M25 3 L47 43 L25 83 L3 43 Z" stroke-width="3.4"/><path d="M49 3 L71 43 L49 83 L27 43 Z" stroke-width="3.4"/>
+          </svg>
+          <span class="logo__txt"><span class="logo__name">Bavarian Watch</span><span class="logo__sub">München ♦ London</span></span>
+        </a>
+        <p>Unique watches for strong personalities. Designed in Munich, Bavaria — produced in Germany within 300 km of Munich, with Swiss movements.</p>
+        <div class="footer__soc" style="margin-top:22px">
+          <a href="https://facebook.com/BWGMunich" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H8v3h3v6h3v-6h3l1-3h-4V9c0-.6.4-1 1-1Z"/></svg></a>
+          <a href="https://instagram.com/bavarianwatch" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#collections">All products</a></li>
+          <li><a href="#isaria">ISARIA</a></li>
+          <li><a href="#bavaria">BAVARIA</a></li>
+          <li><a href="#">Straps &amp; accessoires</a></li>
+          <li><a href="#">Search</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="#mission">About our mission</a></li>
+          <li><a href="#">BWG in the press</a></li>
+          <li><a href="#">FAQ &amp; video manual</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="https://www.thewatchhub.eu">TheWatchHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#contact">Contact / Imprint</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="mailto:servus@bavarian-watch.com">servus@bavarian-watch.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 BWG Bavarian Watch — a brand of Brent Advice Ltd, 201a Victoria Street, London SW1E 5NE</span>
+      <div class="pay" aria-label="Accepted payments">
+        <span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>PAYPAL</span><span>KLARNA</span><span>APPLE PAY</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Data: reviews
+   ============================================================ */
+const REVIEWS = [
+  {n:"Keith Pruden",t:"Outstanding new design language",q:"I've collected watches for decades — BWG holds itself proudly at the same level as many more established German brands.",v:1},
+  {n:"James Crowther",t:"A hidden masterpiece",q:"It really is that nice. The lume is fantastic — a 30s blast with a UV torch lasted brightly ALL night.",v:1},
+  {n:"Henner Hess",t:"My favourite watch!",q:"Highest quality, great design at an affordable price! I love everything about it.",v:1},
+  {n:"James Crowther",t:"A cracking watch",q:"The case is finely sculpted with great polishing on the chamfered edges. The strap is amazingly supple.",v:1},
+  {n:"Sergio Ramos",t:"High quality watch",q:"I never thought I'd find a watch of such high quality. Their own unique, varied straps are a must.",v:1},
+  {n:"Nicholas Wadsley",t:"A fantastic watch",q:"Superb design and different from others. Excellent value and quality — solidly constructed. Great strap choice.",v:1},
+  {n:"Khaled Elrashedi",t:"Love it!",q:"A very beautiful and above all practical watch, with a strap for every occasion. Fast delivery.",v:0},
+  {n:"Guti",t:"Excellent watch!",q:"Excellent watch. Full review available on YouTube.",v:1},
+  {n:"Mattia Garzetta",t:"Super",q:"Questi cinturini in tessuto colorati sono davvero ottimi — comfortable and beautifully made.",v:0},
+  {n:"james crowther",t:"A quality watch",q:"Simply designed but beautifully executed. This brand is one to watch.",v:1},
+  {n:"Sergio Ramos",t:"Great.",q:"Great professionalism and the work they do. Having their own unique straps is a must.",v:0},
+  {n:"Mattia Garzetta",t:"Recensione orologio",q:"Questo orologio è davvero ben fatto — good materials and light to wear.",v:0},
+  {n:"Mattia Garzetta",t:"Ottimo",q:"Elegant and very comfortable — cinturino approvato.",v:0},
+];
+const starSvg = '<svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .6-5.3 4.6 1.6 6.8L12 17.8 5.1 20.5l1.6-6.8L1.4 9.1l7-.6Z"/></svg>';
+function reviewCard(r){
+  return `<div class="r-card">
+    <div class="stars">${starSvg.repeat(5)}</div>
+    <h4>${r.t}</h4>
+    <p>"${r.q}"</p>
+    <div class="r-card__by">${r.n}${r.v?'<span class="v">Verified</span>':''}</div>
+  </div>`;
+}
+(function(){
+  const a = REVIEWS.slice(0,7), b = REVIEWS.slice(6);
+  const dup = arr => (arr.map(reviewCard).join('')).repeat(2);
+  document.getElementById('rrow1').innerHTML = dup(a);
+  document.getElementById('rrow2').innerHTML = dup(b);
+})();
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============================================================
+   HERO — preload frames + scroll-scrub canvas
+   ============================================================ */
+const FRAME_COUNT = 29;
+const framePath = i => `frames/frame-${String(i).padStart(3,'0')}.jpg`;
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d', {alpha:false});
+const images = [];
+let loaded = 0, ready = false;
+const BG = '#FDFDFD';
+
+const loaderEl = document.getElementById('loader');
+const barEl = document.getElementById('loader-bar');
+const pctEl = document.getElementById('loader-pct');
+
+function sizeCanvas(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  canvas.width = Math.round(w*dpr);
+  canvas.height = Math.round(h*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+function drawFrame(idx){
+  const img = images[idx];
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  ctx.fillStyle = BG;
+  ctx.fillRect(0,0,w,h);
+  if(!img || !img.complete) return;
+  // Original centred composition (as at the start of the project): contain-fit, horizontally
+  // centred with a slight upscale for presence, nudged up a touch.
+  const scale = Math.min(w/img.width, h/img.height) * 0.85;
+  const dw = img.width*scale, dh = img.height*scale;
+  const dx = (w-dw)/2, dy = (h-dh)/2 - h*0.02;
+  ctx.drawImage(img, dx, dy, dw, dh);
+}
+
+function preload(){
+  for(let i=1;i<=FRAME_COUNT;i++){
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      loaded++;
+      const pct = Math.round(loaded/FRAME_COUNT*100);
+      barEl.style.width = pct+'%';
+      pctEl.textContent = pct;
+      if(loaded===FRAME_COUNT) onReady();
+    };
+    img.src = framePath(i);
+    images[i-1] = img;
+  }
+}
+function onReady(){
+  ready = true;
+  sizeCanvas();
+  drawFrame(0);
+  requestAnimationFrame(()=>{
+    loaderEl.classList.add('is-done');
+    document.body.style.overflow='';
+  });
+  update();
+}
+
+/* scroll → frame + layered text */
+const hero = document.getElementById('hero');
+const layers = [...document.querySelectorAll('.hero__layer')].map(el=>{
+  const [s,e] = el.dataset.range.split(',').map(Number);
+  return {el, s, e};
+});
+const scrollcue = document.getElementById('scrollcue');
+
+function heroProgress(){
+  const rect = hero.getBoundingClientRect();
+  const total = hero.offsetHeight - window.innerHeight;
+  const p = Math.min(Math.max(-rect.top / total, 0), 1);
+  return p;
+}
+function layerOpacity(p, s, e){
+  // ramp up over first 25%, hold, ramp down over last 25% of range
+  if(p < s || p > e) return 0;
+  const span = e - s;
+  const local = (p - s)/span;
+  const fade = 0.28;
+  if(local < fade && s > 0) return local/fade;      // no entrance fade for the opening layer
+  if(local > 1-fade && e < 1) return (1-local)/fade; // no exit fade for the closing layer
+  return 1;
+}
+let lastIdx = -1;
+function update(){
+  if(!ready) return;
+  const p = heroProgress();
+  const idx = Math.min(FRAME_COUNT-1, Math.round(p*(FRAME_COUNT-1)));
+  if(idx !== lastIdx){ drawFrame(idx); lastIdx = idx; }
+  layers.forEach(l=>{
+    const o = layerOpacity(p, l.s, l.e);
+    l.el.style.opacity = o.toFixed(3);
+    l.el.style.transform = (l.el.classList.contains('hero__layer--mid')?'translateY(-50%) ':'') +
+      `translateY(${(1-o)*18}px)`;
+  });
+  if(scrollcue) scrollcue.style.opacity = p>0.04 ? 0 : 1;
+}
+
+/* ============================================================
+   Scroll engine (rAF throttled) — hero + parallax + header
+   ============================================================ */
+const header = document.getElementById('header');
+const parallaxEls = [...document.querySelectorAll('[data-parallax]')];
+let ticking = false;
+function onScroll(){
+  if(!ticking){
+    ticking = true;
+    requestAnimationFrame(()=>{
+      update();
+      // header state — hero is light, so the header always uses dark text;
+      // when stuck it sits on a cream-glass background that stays legible over dark sections too
+      header.classList.toggle('is-stuck', window.scrollY > 40);
+      // parallax
+      if(!REDUCE){
+        const vh = window.innerHeight;
+        parallaxEls.forEach(el=>{
+          const r = el.getBoundingClientRect();
+          if(r.bottom < -200 || r.top > vh+200) return;
+          const mid = r.top + r.height/2;
+          const off = (mid - vh/2) / vh;
+          el.style.transform = `translateY(${(-off*el.dataset.parallax*100).toFixed(1)}px)`;
+        });
+      }
+      ticking = false;
+    });
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('resize', ()=>{ if(ready){ sizeCanvas(); lastIdx=-1; update(); }});
+
+/* hero is light → header keeps dark text throughout */
+
+if(REDUCE){
+  // skip the tall scrub: collapse hero, show final state
+  hero.style.height = '100vh';
+  const observerInit = () => {
+    sizeCanvas(); drawFrame(0);
+    layers.forEach(l=> l.el.style.opacity = l.el.classList.contains('hero__layer--top')?1:0);
+    loaderEl.classList.add('is-done');
+  };
+  // still preload but lighter UX
+  preload();
+  window.addEventListener('load', observerInit);
+  // override onReady for reduced mode
+} else {
+  document.body.style.overflow='hidden'; // lock during load
+  preload();
+}
+onScroll();
+
+/* ============================================================
+   Reveal on scroll
+   ============================================================ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ============================================================
+   Announcement rotator
+   ============================================================ */
+(function(){
+  const items = [...document.querySelectorAll('.announce__item')];
+  let i = 0;
+  setInterval(()=>{
+    items[i].classList.remove('is-active');
+    items[i].classList.add('is-prev');
+    const prev = i;
+    i = (i+1)%items.length;
+    items[i].classList.remove('is-prev');
+    items[i].classList.add('is-active');
+    setTimeout(()=>items[prev].classList.remove('is-prev'),650);
+  },3800);
+})();
+
+/* ============================================================
+   Mobile menu
+   ============================================================ */
+const menu = document.getElementById('menu');
+const openBtn = document.getElementById('menu-open');
+const closeBtn = document.getElementById('menu-close');
+function setMenu(open){
+  menu.classList.toggle('is-open', open);
+  openBtn.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+openBtn.addEventListener('click',()=>setMenu(true));
+closeBtn.addEventListener('click',()=>setMenu(false));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') setMenu(false); });
+
+/* ============================================================
+   Newsletter (cosmetic validation)
+   ============================================================ */
+const nf = document.getElementById('news-form');
+const ne = document.getElementById('news-email');
+const nm = document.getElementById('news-msg');
+nf.addEventListener('submit',e=>{
+  e.preventDefault();
+  const ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ne.value.trim());
+  if(!ok){ nm.style.color='#E8A0A0'; nm.textContent='Please enter a valid email address.'; ne.focus(); return; }
+  nm.style.color='var(--brass-2)';
+  nm.textContent='Danke! Please check your inbox to confirm. 🤝';
+  ne.value='';
+});
+</script>
+</body>
+</html>
