@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
-<link rel="preload" as="fetch" href="BWG-ISARIA-explode-open-close-loop-11s.mp4" crossorigin />
+<link rel="preload" as="image" href="story-frames/f01.jpg" />
 <style>
 /* ============================================================
    BWG BAVARIAN WATCH — Design tokens
@@ -202,7 +202,7 @@ section{position:relative}
    ============================================================ */
 .hero{height:480vh;position:relative;background:var(--paper)}
 .hero__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-#hero-video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;background:var(--paper)}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;mix-blend-mode:multiply}
 .hero__stage-grad{position:absolute;inset:0;background:
   radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(245,241,234,.5) 100%);
   pointer-events:none}
@@ -538,7 +538,7 @@ section{position:relative}
      ============================================================ -->
 <section class="hero" id="hero">
   <div class="hero__sticky">
-    <video id="hero-video" preload="auto" muted playsinline><source src="BWG-ISARIA-explode-open-close-loop-11s.mp4" type="video/mp4"></video>
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero__stage-grad"></div>
     <div class="hero__overlay">
       <!-- top layer (assembled / intro) -->
@@ -983,32 +983,119 @@ function reviewCard(r){
 const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ============================================================
-   HERO — video scroll-scrub
+   HERO — frames from BWG-ISARIA-explode-open-close-loop-11s.mp4,
+   scrubbed on scroll. The video itself has only two keyframes, so
+   seeking it while scrolling stutters; 60 stills taken from its
+   opening half (story-frames/) are drawn instead, opening and then
+   closing again as the hero scrolls past.
    ============================================================ */
-const video = document.getElementById('hero-video');
+const FRAME_COUNT = 60;
+const framePath = i => `story-frames/f${String(i+1).padStart(2,'0')}.jpg`;
+// progress through the hero → frame (0 assembled … FRAME_COUNT-1 fully open)
+const FRAME_KEYS = [[0,0],[0.06,0],[0.42,FRAME_COUNT-1],[0.6,FRAME_COUNT-1],[0.94,0],[1,0]];
+const smoothstep = t => t*t*(3-2*t);
+function frameAt(p){
+  if(p <= FRAME_KEYS[0][0]) return FRAME_KEYS[0][1];
+  for(let k=1;k<FRAME_KEYS.length;k++){
+    const [p1,v1] = FRAME_KEYS[k], [p0,v0] = FRAME_KEYS[k-1];
+    if(p <= p1) return v0 + (v1-v0)*smoothstep((p-p0)/(p1-p0||1));
+  }
+  return FRAME_KEYS[FRAME_KEYS.length-1][1];
+}
+
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
 const loaderEl = document.getElementById('loader');
 const barEl = document.getElementById('loader-bar');
 const pctEl = document.getElementById('loader-pct');
-let ready = false;
+const images = [];
+let loaded = 0, ready = false;
 
-video.addEventListener('progress', () => {
-  if(!video.duration || !video.buffered.length) return;
-  const pct = Math.min(100, Math.round(video.buffered.end(video.buffered.length-1) / video.duration * 100));
-  barEl.style.width = pct+'%';
-  pctEl.textContent = pct;
-});
-video.addEventListener('loadeddata', () => {
+function sizeCanvas(){
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(canvas.clientWidth*dpr);
+  canvas.height = Math.round(canvas.clientHeight*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.imageSmoothingQuality = 'high';
+}
+
+/* Each frame is composed off-screen with its edges faded to fully
+   transparent, so the strap's crop at the picture border never shows.
+   The canvas multiplies, so the white render background drops out. */
+const off = document.createElement('canvas');
+const octx = off.getContext('2d');
+let composed = '';
+function compose(i, j, t, px){
+  const key = i+':'+j+':'+t.toFixed(3)+':'+px;
+  if(key === composed) return;
+  composed = key;
+  if(off.width !== px){ off.width = off.height = px; }
+  octx.globalCompositeOperation = 'source-over';
+  octx.clearRect(0,0,px,px);
+  octx.imageSmoothingQuality = 'high';
+  const put = (im, alpha)=>{
+    if(!im || !im.naturalWidth) return;
+    octx.globalAlpha = alpha; octx.drawImage(im, 0, 0, px, px);
+  };
+  put(images[i], 1);
+  if(t > 0.001) put(images[j], t);       // cross-fade to the next still
+  octx.globalAlpha = 1;
+  octx.globalCompositeOperation = 'destination-in';
+  const e = px*0.12, ramp = (x0,y0,x1,y1)=>{
+    const g = octx.createLinearGradient(x0,y0,x1,y1);
+    g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'#000');
+    octx.fillStyle = g; octx.fillRect(0,0,px,px);
+  };
+  ramp(0,0,0,e); ramp(0,px,0,px-e); ramp(0,0,e,0); ramp(px,0,px-e,0);
+  octx.globalCompositeOperation = 'source-over';
+}
+function drawFrame(f){
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  ctx.clearRect(0,0,w,h);
+  const i = Math.min(FRAME_COUNT-1, Math.floor(f)), t = f - i, j = Math.min(FRAME_COUNT-1, i+1);
+  const size = Math.min(w, h) * 0.96;
+  const dpr = canvas.width / (w || 1);
+  compose(i, j, t, Math.max(1, Math.round(size*dpr)));
+  ctx.drawImage(off, (w-size)/2, (h-size)/2, size, size);
+}
+
+function preload(){
+  for(let i=0;i<FRAME_COUNT;i++){
+    const img = new Image();
+    img.decoding = 'async';
+    img.onload = img.onerror = () => {
+      loaded++;
+      const pct = Math.round(loaded/FRAME_COUNT*100);
+      barEl.style.width = pct+'%';
+      pctEl.textContent = pct;
+      if(loaded===FRAME_COUNT) onReady();
+    };
+    img.src = framePath(i);
+    images[i] = img;
+  }
+}
+function onReady(){
   ready = true;
-  barEl.style.width = '100%';
-  pctEl.textContent = '100';
+  sizeCanvas();
+  scrub = target = heroProgress();
+  drawFrame(frameAt(scrub));
   requestAnimationFrame(()=>{
     loaderEl.classList.add('is-done');
     document.body.style.overflow='';
   });
   update();
-});
+}
 
-/* scroll → video time + layered text */
+/* the frame follows the scroll with a light catch-up, so it glides */
+let target = 0, scrub = 0, running = false;
+function frameLoop(){
+  scrub += (target - scrub) * (REDUCE ? 1 : 0.11);
+  if(Math.abs(target - scrub) < 0.0004) scrub = target;
+  drawFrame(frameAt(scrub));
+  if(scrub !== target) requestAnimationFrame(frameLoop); else running = false;
+}
+
+/* scroll → frame + layered text */
 const hero = document.getElementById('hero');
 const layers = [...document.querySelectorAll('.hero__layer')].map(el=>{
   const [s,e] = el.dataset.range.split(',').map(Number);
@@ -1019,6 +1106,7 @@ const scrollcue = document.getElementById('scrollcue');
 function heroProgress(){
   const rect = hero.getBoundingClientRect();
   const total = hero.offsetHeight - window.innerHeight;
+  if(!(total > 0)) return 0;            // not laid out yet (e.g. loaded in a hidden tab)
   const p = Math.min(Math.max(-rect.top / total, 0), 1);
   return p;
 }
@@ -1031,11 +1119,11 @@ function layerOpacity(p, s, e){
   if(local > 1-fade && e < 1) return (1-local)/fade;
   return 1;
 }
-let lastP = -1;
 function update(){
   if(!ready) return;
   const p = heroProgress();
-  if(video.duration && Math.abs(p - lastP) > 0.001){ video.currentTime = p * video.duration; lastP = p; }
+  target = p;
+  if(!running){ running = true; requestAnimationFrame(frameLoop); }
   layers.forEach(l=>{
     const o = layerOpacity(p, l.s, l.e);
     l.el.style.opacity = o.toFixed(3);
@@ -1075,21 +1163,18 @@ function onScroll(){
   }
 }
 window.addEventListener('scroll', onScroll, {passive:true});
-window.addEventListener('resize', ()=>{ if(ready){ lastP=-1; update(); }});
+window.addEventListener('resize', ()=>{ if(ready){ sizeCanvas(); composed = ''; drawFrame(frameAt(scrub)); update(); }});
 
 /* hero is light → header keeps dark text throughout */
 
 if(REDUCE){
-  // skip the tall scrub: collapse hero, show first frame
+  // skip the tall scrub: collapse hero, show the assembled watch
   hero.style.height = '100vh';
   layers.forEach(l=> l.el.style.opacity = l.el.classList.contains('hero__layer--top')?1:0);
-  video.addEventListener('loadeddata', ()=>{
-    video.currentTime = 0;
-    loaderEl.classList.add('is-done');
-    document.body.style.overflow='';
-  }, {once:true});
+  preload();
 } else {
   document.body.style.overflow='hidden'; // lock during load
+  preload();
 }
 onScroll();
 
